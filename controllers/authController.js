@@ -2,8 +2,9 @@ const jwt = require("jsonwebtoken");
 
 
 const users = [
- { email: 'user@example.com', password: '123456' },
- { email: 'danilo@gmail.com', password: 'Danilo123@'}
+ { email: 'admin@example.com', password: 'admin123', role: "admin"},
+ { email: 'studant@exaple.com', password: 'user123@', role: "student"},
+ { email: 'teacher@example.com', password: 'teacher123',role: "teacher"}
 ];
 
 
@@ -13,7 +14,9 @@ const login = (req, res) => {
   if (!user) {
    return res.status(401).json({ error: 'Credenciais inválidas' });
  }
-  const token = jwt.sign({ email: user.email }, 'secreta', { expiresIn: '1h' });
+  const token = jwt.sign({ email: user.email, role:user.role }, 'secreta', { 
+    expiresIn: '30m',
+   });
  res.json({ token, email: user.email  });
 };
 
